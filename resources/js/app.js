@@ -5,6 +5,7 @@
  */
 import DashboardComponent from "./components/DashboardComponent";
 import ProfileComponent from "./components/ProfileComponent";
+import UsersComponent from "./components/UsersComponent";
 
 require('./bootstrap');
 
@@ -16,10 +17,12 @@ Vue.use(VueRouter);
 let routes = [
     {path: '/dashboard', component: DashboardComponent},
     {path: '/profile', component: ProfileComponent},
+    {path: '/users', component: UsersComponent},
 ];
 
 const router = new VueRouter({
-   routes
+    mode: 'history',
+    routes
 });
 
 /**
