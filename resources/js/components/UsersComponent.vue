@@ -18,20 +18,22 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Type</th>
+                                    <th>Registered at</th>
                                     <th>Modify</th>
                                 </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                            <tr v-for="user in users" :key="user.id">
+                                <td>{{user.id}}</td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.type}}</td>
+                                <td>{{user.created_at}}</td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue"></i>
                                     </a>
                                     /
                                     <a href="#">
-                                        <i class="fa fa-delete red"></i>
+                                        <i class="fa fa-trash red"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -111,6 +113,7 @@
 
         data() {
             return {
+                users: {},
                 form: new Form({
                     name : '',
                     email: '',
@@ -122,12 +125,15 @@
             }
         },
         methods: {
-          createUser() {
+            loadUsers() {
+                axios.get("api/user").then(({data}) => (this.users = data.data));
+            },
+            createUser() {
                 this.form.post('api/user')
-          }
+            }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+            this.loadUsers();
         }
     }
 </script>
