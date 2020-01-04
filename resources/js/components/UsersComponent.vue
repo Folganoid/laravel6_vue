@@ -120,7 +120,7 @@
                     password: '',
                     type: '',
                     bio: '',
-                    photo: ''
+                    photo: 'photo.jpg'
                 })
             }
         },
@@ -131,7 +131,9 @@
             createUser() {
                 this.$Progress.start();
                 this.form.post('api/user');
+                Fire.$emit('AfterCreated');
                 $('#addNew').modal('hide');
+
                 toast.fire({
                     type: 'success',
                     title: 'User created successfully',
@@ -141,6 +143,11 @@
         },
         created() {
             this.loadUsers();
+            Fire.$on('AfterCreated', () => {
+                this.loadUsers();
+            });
+            //setInterval(() => this.loadUsers(), 5000);
+
         }
     }
 </script>

@@ -2074,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
         password: '',
         type: '',
         bio: '',
-        photo: ''
+        photo: 'photo.jpg'
       })
     };
   },
@@ -2090,6 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
     createUser: function createUser() {
       this.$Progress.start();
       this.form.post('api/user');
+      Fire.$emit('AfterCreated');
       $('#addNew').modal('hide');
       toast.fire({
         type: 'success',
@@ -2099,7 +2100,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this2 = this;
+
     this.loadUsers();
+    Fire.$on('AfterCreated', function () {
+      _this2.loadUsers();
+    }); //setInterval(() => this.loadUsers(), 5000);
   }
 });
 
@@ -74818,6 +74824,7 @@ Vue.filter('upText', function (text) {
 Vue.filter('myDate', function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_4___default()(created).format('MMMM Do YYYY, h:mm:ss a');
 });
+window.Fire = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -75183,8 +75190,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/fg/PhpstormProjects/insta/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/fg/PhpstormProjects/insta/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/t420/PhpstormProjects/laravel6_vue/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/t420/PhpstormProjects/laravel6_vue/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
