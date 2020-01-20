@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
 
 class UserController extends Controller
 {
@@ -53,6 +55,15 @@ class UserController extends Controller
     public function profile()
     {
         return auth('api')->user();
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if($request->photo) {
+            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ";")))[1])[1];
+            $imageManager = new ImageManager(['driver' => 'imagick']);
+            $imageManager->make($request->photo)->save(public_path('img/profile/').$name);
+        }
     }
 
     /**
