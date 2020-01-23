@@ -79814,8 +79814,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/fg/PhpstormProjects/insta/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/fg/PhpstormProjects/insta/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/t420/PhpstormProjects/laravel6_vue/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/t420/PhpstormProjects/laravel6_vue/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -53,18 +53,52 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public function profile()
     {
         return auth('api')->user();
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updateProfile(Request $request)
     {
-        if($request->photo) {
+        $user = auth('api')->user();
+
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'sometimes|required|string|min:4'
+        ]);
+
+        $currentPhoto = $user->photo;
+
+        if($request->photo != $currentPhoto) {
+
             $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ";")))[1])[1];
             $imageManager = new ImageManager(['driver' => 'imagick']);
             $imageManager->make($request->photo)->save(public_path('img/profile/').$name);
+
+            $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+            if(file_exists($userPhoto)) {
+                @unlink($userPhoto);
+            }
         }
+
+        if (!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request['password'])]);
+
+        }
+
+        $user->update($request->all());
+        return ['message' => 'Success'];
     }
 
     /**
