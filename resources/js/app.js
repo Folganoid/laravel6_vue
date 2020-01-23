@@ -14,6 +14,9 @@ window.Vue = require('vue');
 import {Form, HasError, AlertError} from 'vform';
 import moment from 'moment';
 import swal from 'sweetalert2';
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
 window.swal = swal;
 
 const toast = swal.mixin({
