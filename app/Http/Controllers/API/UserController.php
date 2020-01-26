@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\User;
 use Faker\Provider\Image;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
@@ -23,8 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('isAdmin');
-        return User::latest()->paginate(10);
+        if (Gate::allows('isAdmin') || Gate::allows('isAuthor')) {
+            return User::latest()->paginate(10);
+        }
     }
 
     /**
